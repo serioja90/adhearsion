@@ -200,7 +200,7 @@ module Adhearsion
     describe "#pass" do
       let(:pass_controller) do
         Class.new CallController do
-          after_call :foobar
+          after :foobar
 
           def run
             before
@@ -237,7 +237,7 @@ module Adhearsion
         subject.exec
       end
 
-      it "should execute after_call callbacks before passing control" do
+      it "should execute after callbacks before passing control" do
         expect(subject).to receive(:before).once.ordered
         expect(subject).to receive(:foobar).once.ordered
         expect(call).to receive(:answer).once.ordered
@@ -622,11 +622,11 @@ module Adhearsion
 end
 
 class ExampleCallController < Adhearsion::CallController
-  before_call { setup_models }
-  before_call :setup_models
+  before { setup_models }
+  before :setup_models
 
-  after_call { clean_up_models }
-  after_call :clean_up_models
+  after { clean_up_models }
+  after :clean_up_models
 
   on_error { apologize_for_failure }
   on_error :apologize_for_failure
@@ -661,13 +661,13 @@ describe ExampleCallController do
     allow(call.wrapped_object).to receive_messages :write_and_await_response => nil
   end
 
-  it "should execute the before_call callbacks before processing the call" do
+  it "should execute the before callbacks before processing the call" do
     expect(subject).to receive(:setup_models).twice.ordered
     expect(subject).to receive(:join_to_conference).once.ordered
     subject.exec
   end
 
-  it "should execute the after_call callbacks after the call is hung up" do
+  it "should execute the after callbacks after the call is hung up" do
     expect(subject).to receive(:join_to_conference).once.ordered
     expect(subject).to receive(:clean_up_models).twice.ordered
     expect(subject).to receive(:foobar).never
@@ -695,7 +695,7 @@ describe ExampleCallController do
   end
 
   describe "when the controller finishes without a hangup" do
-    it "should execute the after_call callbacks" do
+    it "should execute the after callbacks" do
       subject[:skip_hangup] = true
       expect(subject).to receive(:join_to_conference).once.ordered
       expect(subject).to receive(:foobar).once.ordered
