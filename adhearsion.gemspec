@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rake'
   s.add_runtime_dependency 'reel', ["~> 0.6.0"]
   s.add_runtime_dependency 'reel-rack', ["~> 0.2.0"]
-  s.add_runtime_dependency 'ruby_ami', ["~> 3.0"]
+  s.add_runtime_dependency 'ruby_ami', ["~> 2.4"]
   s.add_runtime_dependency 'ruby_jid', ["~> 1.0"]
   s.add_runtime_dependency 'ruby_speech', ["~> 3.0"]
   s.add_runtime_dependency 'state_machine', ["~> 1.0"]
