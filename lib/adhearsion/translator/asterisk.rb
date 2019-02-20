@@ -161,7 +161,7 @@ module Adhearsion
       end
 
       def run_at_fully_booted
-        send_ami_action 'Command', 'Command' => "dialplan add extension #{REDIRECT_EXTENSION},#{REDIRECT_PRIORITY},AGI,agi:async into #{REDIRECT_CONTEXT}"
+        send_ami_action 'Command', 'Command' => "dialplan add extension #{REDIRECT_EXTENSION},#{REDIRECT_PRIORITY},AGI,agi:async into #{REDIRECT_CONTEXT}" rescue nil
 
         result = send_ami_action 'Command', 'Command' => "dialplan show #{REDIRECT_CONTEXT}"
         if result.text_body =~ /failed/
