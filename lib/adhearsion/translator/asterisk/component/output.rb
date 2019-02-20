@@ -37,7 +37,7 @@ module Adhearsion
 
               repeat_times.times do
                 render_docs.each do |doc|
-                  playback(filenames(doc).values) || raise(PlaybackError)
+                  @stopped || playback(filenames(doc).values) || raise(PlaybackError)
                 end
               end
             when :native_or_unimrcp
