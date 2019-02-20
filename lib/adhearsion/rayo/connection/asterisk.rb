@@ -41,7 +41,7 @@ module Adhearsion
         end
 
         def new_ami_stream
-          stream = RubyAMI::Stream.new(*@stream_options, ->(event, stream) { translator.async.handle_ami_event event, stream }, logger)
+          stream = RubyAMI::Stream.new(*@stream_options, ->(event) { translator.async.handle_ami_event event }, logger)
           client = (ami_client || RubyAMIStreamProxy.new(stream))
           client.stream = stream
           client
